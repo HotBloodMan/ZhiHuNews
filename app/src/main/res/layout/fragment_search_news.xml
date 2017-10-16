@@ -1,0 +1,8 @@
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/search_result_list"
+                                        style="@style/commonListViewStyle"
+             tools:context="com.ljt.zhihunews.fragment.SearchNewsFragment">
+
+
+</android.support.v7.widget.RecyclerView>
