@@ -64,6 +64,7 @@ public final class DailyNewsDataSource {
         }
     }
     public List<DailyNews> newsOfTheDay(String date){
+        //查数据库表TABLE_NAME
         Cursor cursor=database.query(DBHelper.TABLE_NAME,
                 allColumns,DBHelper.COLUMN_DATE+" = "+data,null,null,null,null);
         cursor.moveToFirst();

@@ -38,10 +38,14 @@ public class NewsListFromZhihuObservable {
     private static final String QUESTION_LINKS_SELECTOR = "div.view-more a";
 
     public static Observable<List<DailyNews>> ofDate(String date) {
-        Observable<Story> stories = getHtml(Constants.Urls.ZHIHU_DAILY_BEFORE, date)
+        Observable<Story> stories =
+                //将url根据时间来编码，拿到json数据
+                getHtml(Constants.Urls.ZHIHU_DAILY_BEFORE, date)
+                 //获取jsonArray数据
                 .flatMap(NewsListFromZhihuObservable::getStoriesJsonArrayObservable)
+                  //解析json数据 拿到故事标题 图片 信息
                 .flatMap(NewsListFromZhihuObservable::getStoriesObservable);
-        Log.d(TAG,TAG+" "+"---->>>ofDate(String date) stories= "+stories);
+        Log.d(TAG,TAG+" "+"---->>>ofDate(String date)------->>> stories= "+stories);
 
         Observable<Document> documents = stories
                 .flatMap(NewsListFromZhihuObservable::getDocumentObservable);
@@ -50,15 +54,22 @@ public class NewsListFromZhihuObservable {
                 = Observable.zip(stories, documents, NewsListFromZhihuObservable::createPair);
 
         Observable<Pair<Story, Document>> storyNDocuments = toNonempty(optionalStoryNDocuments);
-
+        Log.d(TAG,TAG+" "+" ---->>>-------------->>> storyNDocuments= "+storyNDocuments);
         return toNonempty(storyNDocuments.map(NewsListFromZhihuObservable::convertToDailyNews))
                 .doOnNext(news -> news.setDate(date))
                 .toList();
     }
-
+/*
+*
+* 拿到某一天
+* */
     private static Observable<JSONArray> getStoriesJsonArrayObservable(String html) {
         return Observable.create(subscriber -> {
             try {
+                Log.d("NewsListFragment",TAG+"  getStoriesJsonArrayObservable(----->>>url= "+html.toString());
+                JSONArray stories = new JSONObject(html).getJSONArray("stories");
+                Log.d("NewsListFragment",TAG+"  getStoriesJsonArrayObservable(----->>>JSONArray stories" +
+                        "= "+stories.toString());
                 subscriber.onNext(new JSONObject(html).getJSONArray("stories"));
                 subscriber.onCompleted();
             } catch (JSONException e) {
@@ -118,6 +129,9 @@ public class NewsListFromZhihuObservable {
         return Optional.ofNullable(document == null ? null : Pair.create(story, document));
     }
 
+    /*
+    * Pair:对  泛型类
+    * */
     private static Optional<DailyNews> convertToDailyNews(Pair<Story, Document> pair) {
         DailyNews result = null;
 
@@ -126,6 +140,10 @@ public class NewsListFromZhihuObservable {
         String dailyTitle = story.getDailyTitle();
 
         List<Question> questions = getQuestions(document, dailyTitle);
+        Log.d(TAG,TAG+"convertToDailyNews( ----->>>dailyTitle= "+ dailyTitle.toString()
+                +"  convertToDailyNews( ----->>>questions= "+
+                questions.get(0).getUrl());
+
         if (Stream.of(questions).allMatch(Question::isValidMyApplication)) {
             result = new DailyNews();
 
