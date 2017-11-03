@@ -61,12 +61,13 @@ public class NewsListFragment extends Fragment implements
         super.onCreate(savedInstanceState);
         Log.d(TAG,TAG+" "+"---->>>onCreate ");
         if(savedInstanceState==null){
+            //从Activity中的MainPagerAdapter拿参数
             Bundle bundle = getArguments();
             date = bundle.getString(Constants.BundleKeys.DATE);
             isToday=bundle.getBoolean(Constants.BundleKeys.IS_FIRST_PAGE);
              Log.d(TAG,TAG+"onCreate( ----->>>date= "+date.toString()+
              "isToday="+isToday);
-        //旋转时 Fragment 不需要重新创建
+        //保存Fragment实例,旋转时 Fragment 不需要重新创建
             setRetainInstance(true);
         }
     }
@@ -79,6 +80,7 @@ public class NewsListFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
         assert  view !=null;//assert 断言
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.news_list);
+        // 它会允许RecyclerView避免当适配器内容改变时使整个布局失效
         mRecyclerView.setHasFixedSize(!isToday);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -176,8 +178,8 @@ public class NewsListFragment extends Fragment implements
 
     @Override
     public void onNext(List<DailyNews> dailyNewses) {
-        Log.d(TAG,TAG+" onNext()"+"---->>>dailyNewses= "+dailyNewses);
         this.newsList=dailyNewses;
+        Log.d(TAG,TAG+" onNext()"+"---->>>dailyNewses= "+dailyNewses);
     }
 
     @Override

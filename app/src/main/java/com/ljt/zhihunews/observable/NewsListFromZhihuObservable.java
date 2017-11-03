@@ -38,6 +38,9 @@ public class NewsListFromZhihuObservable {
     private static final String QUESTION_LINKS_SELECTOR = "div.view-more a";
 
     public static Observable<List<DailyNews>> ofDate(String date) {
+        /*
+        * 层层嵌套，下一层依赖上一层
+        * */
         Observable<Story> stories =
                 //将url根据时间来编码，拿到json数据
                 getHtml(Constants.Urls.ZHIHU_DAILY_BEFORE, date)

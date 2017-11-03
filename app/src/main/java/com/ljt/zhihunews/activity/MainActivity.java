@@ -65,11 +65,20 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
+    /*
+    * PagerAdapter 的实现将只保留当前页面，当页面离开视线后，就会被消除，
+    * 释放其资源；而在页面需要显示时，生成新的页面(就像 ListView 的实现一样)。
+    * 这么实现的好处就是当拥有大量的页面时，不必在内存中占用大量的内存。
+    * */
     private class MainPagerAdapter extends FragmentStatePagerAdapter{
 
         public MainPagerAdapter(FragmentManager fm) {
             super(fm);
         }
+
+        /*
+        * 生成新的 Fragment 对象
+        * */
         @Override
         public Fragment getItem(int i) {
             Bundle bundle = new Bundle();
