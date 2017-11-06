@@ -11,6 +11,9 @@ import com.squareup.timessquare.CalendarPickerView;
 import java.util.Calendar;
 import java.util.Date;
 
+/*
+* 含有日历的Activity
+* */
 public class PickDateActivity extends BaseActivity {
 
     @Override

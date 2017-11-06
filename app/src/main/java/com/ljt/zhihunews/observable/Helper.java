@@ -134,6 +134,15 @@ public class Helper {
          Log.d(TAG,TAG+"reflectNewsListFromJSON( ----->>>newsListJsonArray= "+
          newsListJsonArray);
         Gson gson = new GsonBuilder().create();
+        /*
+        http://blog.csdn.net/alexxu1988/article/details/46685433
+        * Gson提供了fromJson()方法来实现从Json相关对象到java实体的方法。
+        *我们一般都会碰到两种情况，转成单一实体对象和转换成对象列表或者其他结构。
+        *转成单一实体对象:比如json字符串为：[{“name”:”name0”,”age”:0}]
+        *转换成列表类型：List<Person> ps = gson.fromJson(str, new TypeToken<List<Person>>(){}.getType());
+        *使用了TypeToken，它是gson提供的数据类型转换器，可以支持各种数据集合类型转换。
+        *
+        * */
         return gson.fromJson(newsListJsonArray.toString(), Constants.Types.newsListType);
     }
 

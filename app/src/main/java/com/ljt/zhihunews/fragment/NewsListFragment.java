@@ -36,7 +36,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * A simple {@link Fragment} subclass.
+ *newsMainPage
  */
 public class NewsListFragment extends Fragment implements
         SwipeRefreshLayout.OnRefreshListener
@@ -133,6 +133,9 @@ public class NewsListFragment extends Fragment implements
         return isVisibleToUser && shouldAutoRefresh() && !isRefreshed;
     }
 
+    /*
+    * 是否自动刷新
+    * */
     private boolean shouldAutoRefresh() {
         Log.d(TAG,TAG+" "+"---->>>shouldAutoRefresh ");
         return MyApplicaion.getSharedPreferences()
@@ -158,9 +161,11 @@ public class NewsListFragment extends Fragment implements
     private Observable<List<DailyNews>> getNewsListObservable(){
         Log.d(TAG,TAG+" "+"---->>>getNewsListObservable ");
         if(shouldSubscribeToZhihu()){
+            //从知乎上拿最新的信息 订阅模式，知乎给推送
             Log.d(TAG,TAG+" getNewsListObservable"+"---->>>111 ");
             return NewsListFromZhihuObservable.ofDate(date);
         }else{
+            //没有订阅 就主动访问网络，从网络上拿数据
             Log.d(TAG,TAG+" getNewsListObservable"+"---->>>222 ");
             return NewsListFromAccelerateServerObservable.ofDate(date);
         }

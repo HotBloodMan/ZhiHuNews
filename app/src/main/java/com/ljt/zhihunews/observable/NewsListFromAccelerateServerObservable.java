@@ -14,6 +14,7 @@ import static com.ljt.zhihunews.observable.Helper.toNewsListObservable;
 
 /**
  * Created by Administrator on 2017/10/6/006.
+ * 业务类 从服务器拿数据
  */
 
 public class NewsListFromAccelerateServerObservable {

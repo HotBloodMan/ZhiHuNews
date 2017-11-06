@@ -31,6 +31,8 @@ public class MainActivity extends BaseActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.main_pager);
         assert tabs != null;
         assert viewPager != null;
+        /*setOffscreenPageLimit 方法设置的默认值是1.这个设置的值有两层含义:
+         一是 ViewPager 会预加载几页; 二是 ViewPager 会缓存 2*n+1 页(n为设置的值).*/
         viewPager.setOffscreenPageLimit(PAGE_COUNT);
 
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());

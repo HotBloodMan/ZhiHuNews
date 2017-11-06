@@ -12,6 +12,7 @@ import static com.ljt.zhihunews.observable.Helper.toNewsListObservable;
 
 /**
  * Created by ${JT.L} on 2017/10/16.
+ * 搜索界面，需要网络
  */
 
 public class NewsListFromSearchObservable {

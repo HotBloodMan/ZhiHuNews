@@ -11,6 +11,7 @@ import rx.Observable;
 
 /**
  * Created by Administrator on 2017/10/6/006.
+ * 从数据库拿数据
  */
 
 public class NewsListFromDatabaseObservable {

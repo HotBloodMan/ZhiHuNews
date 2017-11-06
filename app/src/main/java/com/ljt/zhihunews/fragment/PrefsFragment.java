@@ -32,6 +32,7 @@ public class PrefsFragment extends PreferenceFragment implements
 
     public PrefsFragment() {
         // Required empty public constructor
+
     }
 
     @Override

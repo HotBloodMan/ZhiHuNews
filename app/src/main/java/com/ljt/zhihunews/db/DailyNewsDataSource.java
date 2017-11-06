@@ -33,6 +33,11 @@ public final class DailyNewsDataSource {
     }
 
     public void open() throws SQLException{
+        /*
+        *当数据库不存在时，系统会自动生成一个数据库
+        * 第一次调用，SQLiteOpenHelper会缓存已获得的SQLiteDatabase实例。
+        * 多次调用getReadXX/getWriteXX得到的都是同一个SQLiteDatabase实例。
+        * */
         database=dbHelper.getWritableDatabase();
     }
     public List<DailyNews> insertDailyNewList(String date,String content){
@@ -53,6 +58,9 @@ public final class DailyNewsDataSource {
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUMN_DATE,date);
         values.put(DBHelper.COLUMN_CONTENT,content);
+        /*
+        * 1 表名 2要更新的数据 3 更新的条件 4 更新需要的参数
+        * */
         database.update(DBHelper.TABLE_NAME,values
                 ,DBHelper.COLUMN_DATE+"="+date,null);
     }
